@@ -2,18 +2,24 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Paper, TextField } from '@material-ui/core';
 
-interface RegisterFormFields {
+export interface RegisterFormFields {
   username: string;
   email: string;
   password: string;
 }
 
-const onSubmit = (data: RegisterFormFields) => {
-  console.log(data);
-};
+interface Props {
+  setFormFields: React.Dispatch<
+    React.SetStateAction<RegisterFormFields | null>
+  >;
+}
 
-const RegisterForm = () => {
+const RegisterForm = (props: Props) => {
   const { register, handleSubmit, errors } = useForm<RegisterFormFields>();
+
+  const onSubmit = (data: RegisterFormFields) => {
+    props.setFormFields(data);
+  };
 
   return (
     <Paper>
