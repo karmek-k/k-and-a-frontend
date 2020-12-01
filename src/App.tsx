@@ -1,7 +1,14 @@
 import React from 'react';
 
-function App() {
-  return <h1>Hello world!</h1>;
-}
+import Routes from './Routes';
+import './globalStyle.css';
+
+const App = () => {
+  return (
+    <>
+      <Routes />
+    </>
+  );
+};
 
 export default App;
