@@ -19,12 +19,17 @@ const HomePage = () => {
       <Paper>
         <Typography variant="h4">K&amp;A - Kuestion and Answer</Typography>
         <Typography>A Q&amp;A site for you and your friends!</Typography>
-        <Link to="/register">
-          <Button>Register</Button>
-        </Link>
-        <Link to="/login">
-          <Button>Login</Button>
-        </Link>
+        <Button
+          color="primary"
+          variant="contained"
+          component={Link}
+          to="/register"
+        >
+          Register
+        </Button>
+        <Button component={Link} to="/login">
+          Login
+        </Button>
       </Paper>
     </Layout>
   );
