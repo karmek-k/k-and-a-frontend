@@ -7,7 +7,6 @@ interface RegisterFormFields {
   username: string;
   email: string;
   password: string;
-  passwordConfirmation: string;
 }
 
 const onSubmit = (data: RegisterFormFields) => {
@@ -25,6 +24,8 @@ const Register = () => {
             label="Username"
             name="username"
             inputRef={register({ required: true, minLength: 3, maxLength: 20 })}
+            error={Boolean(errors.username)}
+            helperText={errors.username && 'Must be between 3-20 characters'}
           />
           <br />
           <TextField
@@ -32,6 +33,8 @@ const Register = () => {
             name="email"
             type="email"
             inputRef={register({ required: true })}
+            error={Boolean(errors.email)}
+            helperText={errors.email && 'Email is required'}
           />
           <br />
           <TextField
@@ -39,6 +42,8 @@ const Register = () => {
             name="password"
             type="password"
             inputRef={register({ required: true, minLength: 6, maxLength: 64 })}
+            error={Boolean(errors.password)}
+            helperText={errors.password && 'Must be between 6-64 characters'}
           />
           <br />
           <Button variant="contained" color="primary" type="submit">
