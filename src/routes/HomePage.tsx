@@ -1,20 +1,14 @@
-import { Button, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Layout from './components/shared/Layout';
-
-const useStyles = makeStyles({
-  centeredText: {
-    textAlign: 'center'
-  }
-});
+import useSharedStyles from './components/shared/styles';
 
 const HomePage = () => {
-  const styles = useStyles();
-
+  const sharedStyles = useSharedStyles();
   return (
-    <Layout className={styles.centeredText}>
+    <Layout className={sharedStyles.centeredText}>
       <Typography variant="h1">Ask and be asked</Typography>
       <Paper>
         <Typography variant="h4">K&amp;A - Kuestion and Answer</Typography>

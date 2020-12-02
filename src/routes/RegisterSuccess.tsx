@@ -1,19 +1,15 @@
-import { Link, makeStyles, Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Layout from './components/shared/Layout';
 
-const useStyles = makeStyles({
-  centeredText: {
-    textAlign: 'center'
-  }
-});
+import useSharedStyles from './components/shared/styles';
 
 const RegisterSuccess = () => {
-  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   return (
-    <Layout className={styles.centeredText}>
+    <Layout className={sharedStyles.centeredText}>
       <Typography variant="h2">Registration successful</Typography>
       <Typography>
         Now you are able to log in.
