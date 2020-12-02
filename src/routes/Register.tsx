@@ -34,10 +34,7 @@ const Register = () => {
     setButtonDisabled(true);
 
     axios
-      .post<RegisterResponse>(
-        'http://localhost:8000/api/users/create',
-        formFields
-      )
+      .post<RegisterResponse>('/api/users/create', formFields)
       .then(res => {
         setUserData(res.data);
       })
