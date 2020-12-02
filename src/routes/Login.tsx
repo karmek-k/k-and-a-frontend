@@ -17,7 +17,7 @@ interface LoginResponse {
 const Login = () => {
   const [formFields, setFormFields] = useState<LoginFormFields | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>();
+  const [authenticated, setAuthenticated] = useState<boolean>();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [errorStatus, setErrorStatus] = useState<number>(0);
   const [errorDialog, setErrorDialog] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const Login = () => {
           Authorization: `Bearer ${res.data.token}`
         };
 
-        setLoggedIn(true);
+        setAuthenticated(true);
       })
       .catch(e => {
         setErrorMsg(e.response.data.msg);
@@ -46,7 +46,7 @@ const Login = () => {
       });
   }, [formFields]);
 
-  if (loggedIn) {
+  if (authenticated) {
     return <Redirect to="/dashboard" />;
   }
 
