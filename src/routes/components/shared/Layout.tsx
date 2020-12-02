@@ -4,7 +4,7 @@ import Navbar from './Layout/Navbar';
 
 interface Props {
   children: any;
-  className: string;
+  className?: string;
 }
 
 const Layout = (props: Props) => {
