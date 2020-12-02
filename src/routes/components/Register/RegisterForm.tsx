@@ -12,6 +12,7 @@ interface Props {
   setFormFields: React.Dispatch<
     React.SetStateAction<RegisterFormFields | null>
   >;
+  buttonDisabled: boolean;
 }
 
 const RegisterForm = (props: Props) => {
@@ -50,7 +51,12 @@ const RegisterForm = (props: Props) => {
           helperText={errors.password && 'Must be between 6-64 characters'}
         />
         <br />
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={props.buttonDisabled}
+        >
           Submit
         </Button>
       </form>

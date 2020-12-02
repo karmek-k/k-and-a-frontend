@@ -19,31 +19,41 @@ interface RegisterResponse {
 
 const Register = () => {
   const [formFields, setFormFields] = useState<RegisterFormFields | null>(null);
-  const [response, setResponse] = useState<RegisterResponse | null>(null);
+  const [userData, setUserData] = useState<RegisterResponse | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string>('');
   const [errorDialog, setErrorDialog] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (!formFields) {
       return;
     }
 
+    setButtonDisabled(true);
+
     axios
       .post<RegisterResponse>(
         'http://localhost:8000/api/users/create',
         formFields
       )
-      .then(res => setResponse(res.data))
-      .catch(() => {
+      .then(res => {
+        setUserData(res.data);
+      })
+      .catch(e => {
+        setErrorMsg(e.response.data.msg);
+        setButtonDisabled(false);
         setErrorDialog(true);
-        setFormFields(null);
       });
   }, [formFields]);
 
   return (
     <Layout>
-      <RegisterForm setFormFields={setFormFields} />
+      <RegisterForm
+        setFormFields={setFormFields}
+        buttonDisabled={buttonDisabled}
+      />
 
-      {formFields && !response && <LinearProgress />}
+      {buttonDisabled && <LinearProgress />}
 
       <Dialog
         onClose={() => setErrorDialog(false)}
@@ -51,7 +61,7 @@ const Register = () => {
         open={errorDialog}
       >
         <DialogTitle>Error</DialogTitle>
-        <Typography>Something went wrong.</Typography>
+        <Typography>{errorMsg}</Typography>
       </Dialog>
     </Layout>
   );
