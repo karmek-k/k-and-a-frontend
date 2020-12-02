@@ -11,6 +11,7 @@ import RegisterForm, {
   RegisterFormFields
 } from './components/Register/RegisterForm';
 import Layout from './components/shared/Layout';
+import { Redirect } from 'react-router-dom';
 
 interface RegisterResponse {
   id: string;
@@ -47,6 +48,10 @@ const Register = () => {
         setErrorDialog(true);
       });
   }, [formFields]);
+
+  if (userData) {
+    return <Redirect to="/register-success" from="/" />;
+  }
 
   return (
     <Layout>
