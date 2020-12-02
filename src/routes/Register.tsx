@@ -21,6 +21,7 @@ const Register = () => {
   const [formFields, setFormFields] = useState<RegisterFormFields | null>(null);
   const [userData, setUserData] = useState<RegisterResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [errorStatus, setErrorStatus] = useState<number>(0);
   const [errorDialog, setErrorDialog] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
@@ -41,6 +42,7 @@ const Register = () => {
       })
       .catch(e => {
         setErrorMsg(e.response.data.msg);
+        setErrorStatus(e.response.status);
         setButtonDisabled(false);
         setErrorDialog(true);
       });
@@ -60,7 +62,7 @@ const Register = () => {
         aria-labelledby="error dialog"
         open={errorDialog}
       >
-        <DialogTitle>Error</DialogTitle>
+        <DialogTitle>Error {errorStatus}</DialogTitle>
         <Typography>{errorMsg}</Typography>
       </Dialog>
     </Layout>
