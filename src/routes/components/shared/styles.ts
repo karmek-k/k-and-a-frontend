@@ -15,6 +15,11 @@ const useStyles = makeStyles({
   dialogText: {
     padding: '1em',
     paddingTop: 0
+  },
+  paperFormContainer: {
+    padding: '1.5em 10vw',
+    maxWidth: '300px',
+    margin: '1em 0'
   }
 });
 

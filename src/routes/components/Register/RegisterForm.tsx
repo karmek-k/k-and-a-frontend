@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, makeStyles, Paper, TextField } from '@material-ui/core';
 
+import useSharedStyles from '../shared/styles';
+
 export interface RegisterFormFields {
   username: string;
   email: string;
@@ -18,14 +20,6 @@ interface Props {
 const useStyles = makeStyles({
   btnSubmit: {
     marginTop: '2em'
-  },
-  paperContainer: {
-    padding: '1.5em 10vw',
-    maxWidth: '300px',
-    margin: '1em 0',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
   }
 });
 
@@ -37,9 +31,10 @@ const RegisterForm = (props: Props) => {
   };
 
   const styles = useStyles();
+  const sharedStyles = useSharedStyles();
 
   return (
-    <Paper className={styles.paperContainer}>
+    <Paper className={sharedStyles.paperFormContainer}>
       <form method="post" onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Username"
