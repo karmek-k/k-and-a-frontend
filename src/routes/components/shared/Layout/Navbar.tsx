@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Link, Toolbar, Typography } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 // import MenuIcon from '@material-ui/icons/Menu';
 
 interface Props {
@@ -14,7 +15,11 @@ const Navbar = (props: Props) => {
         {/* <IconButton edge="start" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton> */}
-        <Typography variant="h6">{props.barText}</Typography>
+        <Typography variant="h6">
+          <Link component={RouterLink} to="/" style={{ color: 'white' }}>
+            {props.barText}
+          </Link>
+        </Typography>
       </Toolbar>
     </AppBar>
   );

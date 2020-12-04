@@ -1,11 +1,19 @@
-import { Button, Paper, TextField } from '@material-ui/core';
+import { Button, makeStyles, Paper, TextField } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import React from 'react';
+
+import useSharedStyles from '../shared/styles';
 
 export interface LoginFormFields {
   username: string;
   password: string;
 }
+
+const useStyles = makeStyles({
+  btnSubmit: {
+    marginTop: '2em'
+  }
+});
 
 interface Props {
   setFormFields: React.Dispatch<React.SetStateAction<LoginFormFields | null>>;
@@ -19,8 +27,11 @@ const LoginForm = (props: Props) => {
     props.setFormFields(data);
   };
 
+  const styles = useStyles();
+  const sharedStyles = useSharedStyles();
+
   return (
-    <Paper>
+    <Paper className={sharedStyles.paperFormContainer}>
       <form method="post" onSubmit={handleSubmit(onSubmit)}>
         <TextField
           autoFocus
@@ -41,6 +52,7 @@ const LoginForm = (props: Props) => {
         />
         <br />
         <Button
+          className={styles.btnSubmit}
           type="submit"
           color="secondary"
           variant="contained"

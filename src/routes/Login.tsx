@@ -9,6 +9,7 @@ import axios from 'axios';
 import LoginForm, { LoginFormFields } from './components/Login/LoginForm';
 import Layout from './components/shared/Layout';
 import { Redirect } from 'react-router-dom';
+import useSharedStyles from './components/shared/styles';
 
 interface LoginResponse {
   token: string;
@@ -46,17 +47,25 @@ const Login = () => {
       });
   }, [formFields]);
 
+  const sharedStyles = useSharedStyles();
+
   if (authenticated) {
     return <Redirect to="/dashboard" />;
   }
 
   return (
     <Layout>
-      <LoginForm
-        setFormFields={setFormFields}
-        buttonDisabled={buttonDisabled}
-      />
+      <div className={sharedStyles.centered}>
+        <Typography className={sharedStyles.formHeader} variant="h3">
+          Login
+        </Typography>
+        <LoginForm
+          setFormFields={setFormFields}
+          buttonDisabled={buttonDisabled}
+        />
+      </div>
       {buttonDisabled && <LinearProgress color="secondary" />}
+
       <Dialog
         onClose={() => setErrorDialog(false)}
         aria-labelledby="error dialog"

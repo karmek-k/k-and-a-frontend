@@ -11,6 +11,7 @@ import RegisterForm, {
   RegisterFormFields
 } from './components/Register/RegisterForm';
 import Layout from './components/shared/Layout';
+import useSharedStyles from './components/shared/styles';
 import { Redirect } from 'react-router-dom';
 
 interface RegisterResponse {
@@ -25,6 +26,8 @@ const Register = () => {
   const [errorStatus, setErrorStatus] = useState<number>(0);
   const [errorDialog, setErrorDialog] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+
+  const sharedStyles = useSharedStyles();
 
   useEffect(() => {
     if (!formFields) {
@@ -52,12 +55,17 @@ const Register = () => {
 
   return (
     <Layout>
-      <RegisterForm
-        setFormFields={setFormFields}
-        buttonDisabled={buttonDisabled}
-      />
+      <div className={sharedStyles.centered}>
+        <Typography className={sharedStyles.formHeader} variant="h3">
+          Register
+        </Typography>
+        <RegisterForm
+          setFormFields={setFormFields}
+          buttonDisabled={buttonDisabled}
+        />
+      </div>
 
-      {buttonDisabled && <LinearProgress />}
+      {buttonDisabled && <LinearProgress color="secondary" />}
 
       <Dialog
         onClose={() => setErrorDialog(false)}
@@ -65,7 +73,9 @@ const Register = () => {
         open={errorDialog}
       >
         <DialogTitle>Error {errorStatus}</DialogTitle>
-        <Typography>{errorMsg}</Typography>
+        <Typography className={sharedStyles.dialogText}>
+          {errorMsg}jioergnhoierhjngorehgjoirehjoi
+        </Typography>
       </Dialog>
     </Layout>
   );
