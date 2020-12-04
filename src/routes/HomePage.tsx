@@ -16,6 +16,9 @@ const useStyles = makeStyles({
   },
   paperHeader: {
     marginBottom: '.5em'
+  },
+  btnPadding: {
+    margin: '.5em 1em'
   }
 });
 
@@ -34,6 +37,7 @@ const HomePage = () => {
         </Typography>
         <Typography>A Q&amp;A site for you and your friends!</Typography>
         <Button
+          className={styles.btnPadding}
           color="primary"
           variant="contained"
           component={Link}
@@ -41,7 +45,7 @@ const HomePage = () => {
         >
           Register
         </Button>
-        <Button component={Link} to="/login">
+        <Button className={styles.btnPadding} component={Link} to="/login">
           Login
         </Button>
       </Paper>
