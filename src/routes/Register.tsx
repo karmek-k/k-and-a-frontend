@@ -65,7 +65,7 @@ const Register = () => {
         />
       </div>
 
-      {buttonDisabled && <LinearProgress />}
+      {buttonDisabled && <LinearProgress color="secondary" />}
 
       <Dialog
         onClose={() => setErrorDialog(false)}
@@ -73,7 +73,9 @@ const Register = () => {
         open={errorDialog}
       >
         <DialogTitle>Error {errorStatus}</DialogTitle>
-        <Typography>{errorMsg}</Typography>
+        <Typography className={sharedStyles.dialogText}>
+          {errorMsg}jioergnhoierhjngorehgjoirehjoi
+        </Typography>
       </Dialog>
     </Layout>
   );

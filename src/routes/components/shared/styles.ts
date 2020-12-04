@@ -11,6 +11,10 @@ const useStyles = makeStyles({
   },
   formHeader: {
     margin: '.5em 0'
+  },
+  dialogText: {
+    padding: '1em',
+    paddingTop: 0
   }
 });
 
