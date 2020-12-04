@@ -56,6 +56,9 @@ const Register = () => {
   return (
     <Layout>
       <div className={sharedStyles.centered}>
+        <Typography className={sharedStyles.formHeader} variant="h3">
+          Register
+        </Typography>
         <RegisterForm
           setFormFields={setFormFields}
           buttonDisabled={buttonDisabled}

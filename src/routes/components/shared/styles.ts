@@ -8,6 +8,9 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
+  },
+  formHeader: {
+    margin: '.5em 0'
   }
 });
 
