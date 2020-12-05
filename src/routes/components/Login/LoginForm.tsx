@@ -20,7 +20,7 @@ interface Props {
   buttonDisabled: boolean;
 }
 
-const LoginForm = (props: Props) => {
+const LoginForm: React.FC<Props> = (props: Props) => {
   const { errors, register, handleSubmit } = useForm<LoginFormFields>();
 
   const onSubmit = (data: LoginFormFields) => {

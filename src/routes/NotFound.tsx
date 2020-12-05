@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Layout from './components/shared/Layout';
 import useSharedStyles from './components/shared/styles';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   const sharedStyles = useSharedStyles();
 
   return (

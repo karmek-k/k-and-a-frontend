@@ -3,11 +3,12 @@ import React from 'react';
 import Navbar from './Layout/Navbar';
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
   className?: string;
 }
 
-const Layout = (props: Props) => {
+const Layout: React.FC<Props> = (props: Props) => {
   return (
     <div className={props.className}>
       <Navbar barText="K&amp;A" />
