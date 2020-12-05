@@ -8,7 +8,7 @@ interface Props {
   barText: string;
 }
 
-const Navbar = (props: Props) => {
+const Navbar: React.FC<Props> = (props: Props) => {
   return (
     <AppBar position="static">
       <Toolbar>

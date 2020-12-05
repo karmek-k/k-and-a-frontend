@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   }
 });
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
 

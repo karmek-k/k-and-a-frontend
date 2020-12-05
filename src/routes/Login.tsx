@@ -15,7 +15,7 @@ interface LoginResponse {
   token: string;
 }
 
-const Login = () => {
+const Login: React.FC = () => {
   const [formFields, setFormFields] = useState<LoginFormFields | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [authenticated, setAuthenticated] = useState<boolean>();

@@ -8,7 +8,7 @@ import NotFound from './routes/NotFound';
 import Register from './routes/Register';
 import RegisterSuccess from './routes/RegisterSuccess';
 
-const Routes = () => {
+const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>

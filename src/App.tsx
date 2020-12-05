@@ -8,7 +8,7 @@ interface CsrfTokenResponse {
   csrfToken: string;
 }
 
-const App = () => {
+const App: React.FC = () => {
   useEffect(() => {
     axios
       .get<CsrfTokenResponse>('/csrf-token')

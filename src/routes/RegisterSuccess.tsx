@@ -5,7 +5,7 @@ import Layout from './components/shared/Layout';
 
 import useSharedStyles from './components/shared/styles';
 
-const RegisterSuccess = () => {
+const RegisterSuccess: React.FC = () => {
   const sharedStyles = useSharedStyles();
 
   return (

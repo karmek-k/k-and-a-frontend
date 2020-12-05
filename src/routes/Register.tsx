@@ -19,7 +19,7 @@ interface RegisterResponse {
   username: string;
 }
 
-const Register = () => {
+const Register: React.FC = () => {
   const [formFields, setFormFields] = useState<RegisterFormFields | null>(null);
   const [userData, setUserData] = useState<RegisterResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   }
 });
 
-const RegisterForm = (props: Props) => {
+const RegisterForm: React.FC<Props> = (props: Props) => {
   const { register, handleSubmit, errors } = useForm<RegisterFormFields>();
 
   const onSubmit = (data: RegisterFormFields) => {
