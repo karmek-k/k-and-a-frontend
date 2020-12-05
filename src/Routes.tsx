@@ -7,6 +7,7 @@ import Login from './routes/Login';
 import NotFound from './routes/NotFound';
 import Register from './routes/Register';
 import RegisterSuccess from './routes/RegisterSuccess';
+import Dashboard from './routes/Dashboard';
 
 const Routes: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Routes: React.FC = () => {
         <Route path="/register" component={Register} />
         <Route path="/register-success" component={RegisterSuccess} />
         <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>
