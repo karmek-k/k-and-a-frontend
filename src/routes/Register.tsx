@@ -73,9 +73,7 @@ const Register = () => {
         open={errorDialog}
       >
         <DialogTitle>Error {errorStatus}</DialogTitle>
-        <Typography className={sharedStyles.dialogText}>
-          {errorMsg}jioergnhoierhjngorehgjoirehjoi
-        </Typography>
+        <Typography className={sharedStyles.dialogText}>{errorMsg}</Typography>
       </Dialog>
     </Layout>
   );
