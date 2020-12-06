@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import QuestionFeed from './components/Dashboard/QuestionFeed';
 import Layout from './components/shared/Layout';
+import { Redirect } from 'react-router-dom';
 
 export interface Question {
   _id: string;
@@ -18,13 +19,23 @@ export interface Question {
 const Dashboard: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [authorized, setAuthorized] = useState<boolean>(true);
 
   useEffect(() => {
-    axios.get<Question[]>('/api/questions/latest').then(res => {
-      setQuestions(res.data);
-      setLoading(false);
-    });
+    axios
+      .get<Question[]>('/api/questions/latest')
+      .then(res => {
+        setQuestions(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setAuthorized(false);
+      });
   }, []);
+
+  if (!authorized) {
+    return <Redirect to="/login" />;
+  }
 
   if (loading) {
     return (
