@@ -23,7 +23,7 @@ const App: React.FC = () => {
         axios
           .get<User>('/api/users/me')
           .then(res => setUser(res.data))
-          .catch();
+          .catch(() => console.log('You are not logged in'));
       })
       .catch(e => console.error(e.response));
   }, []);
