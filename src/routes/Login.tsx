@@ -15,13 +15,20 @@ interface LoginResponse {
   token: string;
 }
 
+interface RequestError {
+  msg: string;
+  status: number;
+}
+
 const Login: React.FC = () => {
   const [formFields, setFormFields] = useState<LoginFormFields | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [authenticated, setAuthenticated] = useState<boolean>();
-  const [errorMsg, setErrorMsg] = useState<string>('');
-  const [errorStatus, setErrorStatus] = useState<number>(0);
-  const [errorDialog, setErrorDialog] = useState<boolean>(false);
+  const [dialog, setDialog] = useState<boolean>(false);
+  const [error, setError] = useState<RequestError>({
+    msg: '',
+    status: 0
+  });
 
   useEffect(() => {
     if (!formFields) {
@@ -40,10 +47,12 @@ const Login: React.FC = () => {
         setAuthenticated(true);
       })
       .catch(e => {
-        setErrorMsg(e.response.data.msg);
-        setErrorStatus(e.response.status);
         setButtonDisabled(false);
-        setErrorDialog(true);
+        setDialog(true);
+        setError({
+          msg: e.response.data.msg,
+          status: e.response.status
+        });
       });
   }, [formFields]);
 
@@ -67,12 +76,12 @@ const Login: React.FC = () => {
       {buttonDisabled && <LinearProgress color="secondary" />}
 
       <Dialog
-        onClose={() => setErrorDialog(false)}
+        onClose={() => setDialog(false)}
         aria-labelledby="error dialog"
-        open={errorDialog}
+        open={dialog}
       >
-        <DialogTitle>Error {errorStatus}</DialogTitle>
-        <Typography>{errorMsg}</Typography>
+        <DialogTitle>Error {error.status}</DialogTitle>
+        <Typography>{error.msg}</Typography>
       </Dialog>
     </Layout>
   );
