@@ -20,10 +20,13 @@ const App: React.FC = () => {
         // check if the user is logged in
         // (has the jwt in a cookie)
         // if so, set user state
-        axios.get<User>('/api/users/me').then(res => setUser(res.data));
+        axios
+          .get<User>('/api/users/me')
+          .then(res => setUser(res.data))
+          .catch();
       })
       .catch(e => console.error(e.response));
-  });
+  }, []);
 
   return (
     <UserContext.Provider value={user}>
