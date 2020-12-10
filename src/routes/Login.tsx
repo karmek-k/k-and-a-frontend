@@ -4,24 +4,32 @@ import {
   LinearProgress,
   Typography
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import LoginForm, { LoginFormFields } from './components/Login/LoginForm';
 import Layout from './components/shared/Layout';
 import { Redirect } from 'react-router-dom';
 import useSharedStyles from './components/shared/styles';
+import { User, UserContext } from '../utils/UserContext';
 
 interface LoginResponse {
   token: string;
 }
 
+interface RequestError {
+  msg: string;
+  status: number;
+}
+
 const Login: React.FC = () => {
   const [formFields, setFormFields] = useState<LoginFormFields | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-  const [authenticated, setAuthenticated] = useState<boolean>();
-  const [errorMsg, setErrorMsg] = useState<string>('');
-  const [errorStatus, setErrorStatus] = useState<number>(0);
-  const [errorDialog, setErrorDialog] = useState<boolean>(false);
+  const [dialog, setDialog] = useState<boolean>(false);
+  const [error, setError] = useState<RequestError>({
+    msg: '',
+    status: 0
+  });
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     if (!formFields) {
@@ -32,24 +40,25 @@ const Login: React.FC = () => {
 
     axios
       .post<LoginResponse>('/api/users/login', formFields)
-      .then(res => {
-        axios.defaults.headers.common = {
-          Authorization: `Bearer ${res.data.token}`
-        };
-
-        setAuthenticated(true);
+      .then(() => {
+        axios
+          .get<User>('/api/users/me')
+          .then(res => setUser(res.data))
+          .catch(() => setUser(null));
       })
       .catch(e => {
-        setErrorMsg(e.response.data.msg);
-        setErrorStatus(e.response.status);
         setButtonDisabled(false);
-        setErrorDialog(true);
+        setDialog(true);
+        setError({
+          msg: e.response.data.msg,
+          status: e.response.status
+        });
       });
   }, [formFields]);
 
   const sharedStyles = useSharedStyles();
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to="/dashboard" />;
   }
 
@@ -67,12 +76,12 @@ const Login: React.FC = () => {
       {buttonDisabled && <LinearProgress color="secondary" />}
 
       <Dialog
-        onClose={() => setErrorDialog(false)}
+        onClose={() => setDialog(false)}
         aria-labelledby="error dialog"
-        open={errorDialog}
+        open={dialog}
       >
-        <DialogTitle>Error {errorStatus}</DialogTitle>
-        <Typography>{errorMsg}</Typography>
+        <DialogTitle>Error {error.status}</DialogTitle>
+        <Typography>{error.msg}</Typography>
       </Dialog>
     </Layout>
   );
