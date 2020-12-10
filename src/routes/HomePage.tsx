@@ -1,6 +1,7 @@
 import { Button, makeStyles, Paper, Typography } from '@material-ui/core';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { UserContext } from '../utils/UserContext';
 
 import Layout from './components/shared/Layout';
 import useSharedStyles from './components/shared/styles';
@@ -25,6 +26,11 @@ const useStyles = makeStyles({
 const HomePage: React.FC = () => {
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
+  const { user } = useContext(UserContext);
+
+  if (user) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Layout className={sharedStyles.centeredText}>
