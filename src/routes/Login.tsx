@@ -10,7 +10,7 @@ import LoginForm, { LoginFormFields } from './components/Login/LoginForm';
 import Layout from './components/shared/Layout';
 import { Redirect } from 'react-router-dom';
 import useSharedStyles from './components/shared/styles';
-import { UserContext } from '../utils/UserContext';
+import { User, UserContext } from '../utils/UserContext';
 
 interface LoginResponse {
   token: string;
@@ -24,13 +24,12 @@ interface RequestError {
 const Login: React.FC = () => {
   const [formFields, setFormFields] = useState<LoginFormFields | null>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-  const [authenticated, setAuthenticated] = useState<boolean>();
   const [dialog, setDialog] = useState<boolean>(false);
   const [error, setError] = useState<RequestError>({
     msg: '',
     status: 0
   });
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     if (!formFields) {
@@ -42,7 +41,10 @@ const Login: React.FC = () => {
     axios
       .post<LoginResponse>('/api/users/login', formFields)
       .then(() => {
-        setAuthenticated(true);
+        axios
+          .get<User>('/api/users/me')
+          .then(res => setUser(res.data))
+          .catch(() => setUser(null));
       })
       .catch(e => {
         setButtonDisabled(false);
@@ -56,7 +58,7 @@ const Login: React.FC = () => {
 
   const sharedStyles = useSharedStyles();
 
-  if (authenticated || user) {
+  if (user) {
     return <Redirect to="/dashboard" />;
   }
 
