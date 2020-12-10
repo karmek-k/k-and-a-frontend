@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { Route, RouteProps } from 'react-router-dom';
+import Login from '../routes/Login';
 import { UserContext } from './UserContext';
 
 const ProtectedRoute: React.FC<RouteProps> = ({
@@ -9,7 +10,7 @@ const ProtectedRoute: React.FC<RouteProps> = ({
   const { user } = useContext(UserContext);
 
   if (!user) {
-    return <Redirect to="/login" />;
+    return <Route {...rest} component={Login} />;
   }
 
   return <Route {...rest} component={component} />;
