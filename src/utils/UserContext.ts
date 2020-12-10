@@ -5,4 +5,13 @@ export interface User {
   username: string;
 }
 
-export const UserContext = createContext<User | null>(null);
+export type UserContextType = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
+
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setUser: () => {}
+});

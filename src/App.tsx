@@ -29,7 +29,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, setUser }}>
       <Routes />
     </UserContext.Provider>
   );

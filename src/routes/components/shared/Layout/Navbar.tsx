@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 const Navbar: React.FC<Props> = (props: Props) => {
   const styles = useStyles();
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <AppBar position="static">

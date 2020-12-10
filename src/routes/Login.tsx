@@ -4,12 +4,13 @@ import {
   LinearProgress,
   Typography
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import LoginForm, { LoginFormFields } from './components/Login/LoginForm';
 import Layout from './components/shared/Layout';
 import { Redirect } from 'react-router-dom';
 import useSharedStyles from './components/shared/styles';
+import { UserContext } from '../utils/UserContext';
 
 interface LoginResponse {
   token: string;
@@ -29,6 +30,7 @@ const Login: React.FC = () => {
     msg: '',
     status: 0
   });
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (!formFields) {
@@ -39,11 +41,7 @@ const Login: React.FC = () => {
 
     axios
       .post<LoginResponse>('/api/users/login', formFields)
-      .then(res => {
-        axios.defaults.headers.common = {
-          Authorization: `Bearer ${res.data.token}`
-        };
-
+      .then(() => {
         setAuthenticated(true);
       })
       .catch(e => {
@@ -58,7 +56,7 @@ const Login: React.FC = () => {
 
   const sharedStyles = useSharedStyles();
 
-  if (authenticated) {
+  if (authenticated || user) {
     return <Redirect to="/dashboard" />;
   }
 
