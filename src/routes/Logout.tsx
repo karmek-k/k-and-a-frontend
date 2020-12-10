@@ -1,9 +1,10 @@
-import { Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../utils/UserContext';
 import Layout from './components/shared/Layout';
 import axios from 'axios';
 import useSharedStyles from './components/shared/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface LogoutResponse {
   msg: string;
@@ -23,6 +24,11 @@ const Logout: React.FC = () => {
   return (
     <Layout className={sharedStyles.centeredText}>
       <Typography variant="h3">Logged out successfully.</Typography>
+      <Typography>
+        <Link component={RouterLink} to="/login">
+          Click here to go to the login page.
+        </Link>
+      </Typography>
     </Layout>
   );
 };
