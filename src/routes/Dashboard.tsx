@@ -1,10 +1,11 @@
 import { Grid, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import QuestionFeed from './components/Dashboard/QuestionFeed';
 import Layout from './components/shared/Layout';
 import { Redirect } from 'react-router-dom';
+import { UserContext } from '../utils/UserContext';
 
 export interface Question {
   _id: string;
@@ -19,7 +20,7 @@ export interface Question {
 const Dashboard: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [authorized, setAuthorized] = useState<boolean>(true);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     axios
@@ -29,11 +30,11 @@ const Dashboard: React.FC = () => {
         setLoading(false);
       })
       .catch(() => {
-        setAuthorized(false);
+        console.error('An error occurred while loading the page');
       });
   }, []);
 
-  if (!authorized) {
+  if (!user) {
     return <Redirect to="/login" />;
   }
 
